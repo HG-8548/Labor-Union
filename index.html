@@ -1,0 +1,231 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>개정노조법 사용자성 세분화 체크리스트 (2026-04-09)</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1b1f24;
+      --muted: #5b6573;
+      --line: #e2e8f0;
+      --accent: #0a66c2;
+      --low: #1a7f37;
+      --mid: #b7791f;
+      --high: #c53030;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #eaf2ff 0, var(--bg) 220px);
+    }
+    .wrap {
+      max-width: 1040px;
+      margin: 24px auto;
+      padding: 0 16px 30px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(15, 35, 60, 0.07);
+    }
+    h1 { margin: 0 0 8px; font-size: 1.55rem; }
+    h2 {
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+      border-left: 4px solid var(--accent);
+      padding-left: 8px;
+    }
+    .meta { color: var(--muted); font-size: 0.94rem; margin-bottom: 6px; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: #fbfcff;
+    }
+    .label { color: var(--muted); font-size: 0.83rem; }
+    .value { font-size: 1.1rem; font-weight: 700; margin-top: 2px; }
+    .risk-low { color: var(--low); }
+    .risk-mid { color: var(--mid); }
+    .risk-high { color: var(--high); }
+    .actions { margin-top: 10px; padding: 10px; border-radius: 10px; background: #f8fbff; border: 1px solid var(--line); }
+    ul { list-style: none; padding: 0; margin: 0; }
+    li {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      background: #fcfdff;
+      line-height: 1.45;
+    }
+    input[type="checkbox"] { transform: translateY(1px); }
+    .q { margin-left: 6px; }
+    .w { color: var(--muted); font-size: 0.82rem; margin-left: 6px; }
+    .footer { color: var(--muted); font-size: 0.9rem; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    @media (max-width: 760px) {
+      .summary { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="card">
+      <h1>개정노조법 사용자성 세분화 체크리스트</h1>
+      <div class="meta">기준일: 2026-04-09 | 시행일: 2026-03-10</div>
+      <div class="meta">체크기준: 계약서·지침서·시스템 설정·회의록·현장관행 중 하나라도 확인되면 체크</div>
+
+      <div class="summary">
+        <div class="pill"><div class="label">총 항목</div><div class="value" id="totalCount">0</div></div>
+        <div class="pill"><div class="label">체크 항목</div><div class="value" id="checkedCount">0</div></div>
+        <div class="pill"><div class="label">위험 점수</div><div class="value" id="riskScore">0</div></div>
+        <div class="pill"><div class="label">현재 등급</div><div class="value" id="riskLevel">저위험</div></div>
+      </div>
+
+      <div class="actions" id="nextActions">
+        등급 기준:
+        <span class="risk-low">저위험</span> 0~34점,
+        <span class="risk-mid">중위험</span> 35~64점,
+        <span class="risk-high">고위험</span> 65~100점
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>A. 계약/문서 구조</h2>
+      <ul>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">도급계약서·운영지침에 원청의 업무 지시 또는 승인 권한 문구가 있다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">과업지시서에서 하청근로자의 업무의 내용·수행방법·수행시간·수행장소를 원청이 구체화한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청 표준서식(지시서·작업표준·점검표)을 하청업체가 그대로 사용하도록 정해져 있다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">하청업체의 작업계획 변경 시 원청 사전협의 또는 사전승인 절차가 필수로 운영된다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청 승인 없이는 하청업체가 인력배치·교체·충원 계획을 확정하기 어렵다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 하청업체의 인사평가 또는 제재 기준 수립·변경에 관여한 기록이 있다.</span><span class="w">(3점)</span></label></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>B. 인력운영 관여</h2>
+      <ul>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">채용·투입 단계에서 원청의 사전확인 또는 승인 절차가 운영된다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청 요청으로 특정 인력의 교체·배제·재배치가 실행된 사례가 있다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 직무별 필요인원·숙련요건을 제시하고 그 기준에 맞춰 인력을 요구한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 근태·결원 현황을 실시간으로 모니터링하고 즉시 충원 지시를 한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">휴가·연장근로·휴일근로 편성 시 원청 승인 또는 협의가 선행된다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">결원 발생 시 대체인력 투입 시점·인원을 원청이 사실상 정한다.</span><span class="w">(3점)</span></label></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>C. 업무수행 지시 체계</h2>
+      <ul>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청 관리자(PM/반장)가 하청근로자에게 일일 업무를 직접 지시한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 작업순서·수행방법·작업속도 등 수행방식을 직접 정한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 작업 개시·중단·재개 시점을 결정하거나 현장에서 즉시 변경한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 작업장 이동·동선·구역배정을 직접 지정하고 수시로 조정한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청 시스템에서 개인별 업무실적을 집계하고 현장 피드백에 활용한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">하청 관리자 경유 없이 원청과 하청근로자 간 직접 지시·보고가 상시 이루어진다.</span><span class="w">(3점)</span></label></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>D. 근로조건 관련 결정 관여</h2>
+      <ul>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">임금항목·수당기준·성과급 기준을 원청이 제시하거나 승인한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">교대편성·근무시간대·휴게운영 기준을 원청이 정하거나 변경 요구한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 연장·야간·휴일근로 필요 여부를 정하고 그 결과가 수당 산정에 반영된다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청의 생산·운영계획 변경이 하청근로자의 근무시간·휴무일 변경으로 직접 이어진다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 복무규정·고객응대 기준 위반을 이유로 개인 단위 시정지시를 한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">안전보건 장비 지급·사용 기준을 원청이 정하고 인력운영과 연동해 적용한다.</span><span class="w">(3점)</span></label></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>E. 안전/품질 관련 구조적 통제</h2>
+      <ul>
+        <li><label><input class="risk-item" type="checkbox" data-weight="4" /> <span class="q">원청이 안전교육 이수 여부를 기준으로 현장 투입 가능 여부를 결정한다.</span><span class="w">(4점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="4" /> <span class="q">원청이 인력배치표·근무조 편성을 직접 수정하거나 재작성한다.</span><span class="w">(4점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">품질·안전 점검 결과가 특정 인력 교체 또는 배제 지시로 연결된다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">안전·품질 회의에서 원청이 개인별 조치사항과 이행기한을 직접 부여한다.</span><span class="w">(3점)</span></label></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>F. 운영체계/보고라인 관여</h2>
+      <ul>
+        <li><label><input class="risk-item" type="checkbox" data-weight="4" /> <span class="q">하청근로자의 업무결과 보고 라인이 하청 관리자보다 원청 관리자 중심으로 운영된다.</span><span class="w">(4점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="4" /> <span class="q">원청이 하청업체 반장·관리자 선임 또는 교체에 대해 사전승인·사전협의를 요구한다.</span><span class="w">(4점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청 내부 시스템(메신저·업무앱·출입/근태 시스템)에 하청근로자를 직접 편입해 운영한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청의 일일·주간 운영회의에서 하청근로자 개인별 업무배정·실적개선 지시가 이루어진다.</span><span class="w">(3점)</span></label></li>
+      </ul>
+    </section>
+
+    <section class="card footer">
+      참고 출처:
+      <a href="https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18983">고용노동부 보도자료(2026-02-24)</a>,
+      <a href="https://www.moel.go.kr/news/notice/noticeView.do?bbs_seq=20260201291">고용노동부 해석지침 공지(2026-02-27)</a>,
+      <a href="https://m.korea.kr/briefing/pressReleaseView.do?gubun=pressRelease&newsId=156747926&pageIndex=25&repCode=">정책브리핑(2026-03-09)</a>,
+      <a href="https://www.scourt.go.kr/portal/dcboard/DcNewsViewAction.work?cbub_code=000220&gubun=44&scode_kname=&searchOption=&searchWord=&seqnum=27652">서울행정법원 2024구합72896</a>
+    </section>
+  </div>
+
+  <script>
+    (function () {
+      var items = Array.prototype.slice.call(document.querySelectorAll('.risk-item'));
+      var totalCountEl = document.getElementById('totalCount');
+      var checkedCountEl = document.getElementById('checkedCount');
+      var riskScoreEl = document.getElementById('riskScore');
+      var riskLevelEl = document.getElementById('riskLevel');
+      var nextActionsEl = document.getElementById('nextActions');
+
+      function update() {
+        var total = items.length;
+        var checked = 0;
+        var score = 0;
+        var maxScore = 0;
+
+        items.forEach(function (el) {
+          var w = Number(el.getAttribute('data-weight') || 1);
+          maxScore += w;
+          if (el.checked) {
+            checked += 1;
+            score += w;
+          }
+        });
+
+        var level = '저위험';
+        var cls = 'risk-low';
+        if (score >= 65) {
+          level = '고위험';
+          cls = 'risk-high';
+        } else if (score >= 35) {
+          level = '중위험';
+          cls = 'risk-mid';
+        }
+
+        totalCountEl.textContent = String(total);
+        checkedCountEl.textContent = String(checked);
+        riskScoreEl.textContent = String(score) + ' / ' + String(maxScore);
+        riskLevelEl.textContent = level;
+        riskLevelEl.className = 'value ' + cls;
+        nextActionsEl.innerHTML = '등급 기준: <span class="risk-low">저위험</span> 0~34점, <span class="risk-mid">중위험</span> 35~64점, <span class="risk-high">고위험</span> 65~100점';
+      }
+
+      items.forEach(function (el) { el.addEventListener('change', update); });
+      update();
+    })();
+  </script>
+</body>
+</html>
