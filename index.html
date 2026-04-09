@@ -3,15 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>개정노조법 사용자성 세분화 체크리스트 (2026-04-09)</title>
+  <title>개정노조법 사용자성 체크리스트 (2026-04-09)</title>
   <style>
     :root {
-      --bg: #f4f7fb;
+      --bg: #eef3f8;
       --card: #ffffff;
-      --text: #1b1f24;
-      --muted: #5b6573;
-      --line: #e2e8f0;
-      --accent: #0a66c2;
+      --text: #162030;
+      --muted: #4f6075;
+      --line: #d6e0ec;
+      --accent: #0f5ea8;
+      --accent-soft: #dbeaf8;
       --low: #1a7f37;
       --mid: #b7791f;
       --high: #c53030;
@@ -19,75 +20,238 @@
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
+      font-family: "SUIT Variable", "Pretendard Variable", "Noto Sans KR", "Malgun Gothic", sans-serif;
       color: var(--text);
-      background: linear-gradient(180deg, #eaf2ff 0, var(--bg) 220px);
+      background:
+        radial-gradient(1200px 420px at 15% -10%, #d9e9fb 0%, rgba(217, 233, 251, 0) 70%),
+        radial-gradient(900px 360px at 100% -15%, #e9f2dd 0%, rgba(233, 242, 221, 0) 72%),
+        linear-gradient(180deg, #f7fbff 0, var(--bg) 320px);
+      min-height: 100vh;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(to right, rgba(15, 94, 168, 0.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 94, 168, 0.045) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.45), transparent 78%);
     }
     .wrap {
-      max-width: 1040px;
-      margin: 24px auto;
-      padding: 0 16px 30px;
+      max-width: 1100px;
+      margin: 26px auto;
+      padding: 0 16px 42px;
+      position: relative;
+      z-index: 1;
     }
     .card {
       background: var(--card);
       border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 20px;
+      border-radius: 16px;
+      padding: 20px 20px 18px;
       margin-bottom: 14px;
-      box-shadow: 0 8px 20px rgba(15, 35, 60, 0.07);
+      box-shadow: 0 12px 26px rgba(11, 34, 57, 0.08);
+      opacity: 0;
+      transform: translateY(10px);
+      animation: reveal 0.45s ease forwards;
     }
-    h1 { margin: 0 0 8px; font-size: 1.55rem; }
+    .card:nth-of-type(2) { animation-delay: 0.04s; }
+    .card:nth-of-type(3) { animation-delay: 0.08s; }
+    .card:nth-of-type(4) { animation-delay: 0.12s; }
+    .card:nth-of-type(5) { animation-delay: 0.16s; }
+    .card:nth-of-type(6) { animation-delay: 0.2s; }
+    .card:nth-of-type(7) { animation-delay: 0.24s; }
+    .card:nth-of-type(8) { animation-delay: 0.28s; }
+    .card:first-of-type {
+      border-top: 4px solid var(--accent);
+      background: linear-gradient(180deg, #ffffff 0%, #f9fcff 100%);
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.7rem;
+      letter-spacing: -0.02em;
+      display: inline-block;
+      padding: 0 0 0 10px;
+      border-left: 5px solid var(--accent);
+      color: var(--text);
+      box-shadow: none;
+    }
     h2 {
       margin: 0 0 10px;
-      font-size: 1.1rem;
-      border-left: 4px solid var(--accent);
-      padding-left: 8px;
+      font-size: 1.08rem;
+      border-left: 5px solid var(--accent);
+      padding-left: 10px;
     }
-    .meta { color: var(--muted); font-size: 0.94rem; margin-bottom: 6px; }
+    .meta {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
     .summary {
       display: grid;
       grid-template-columns: repeat(4, minmax(120px, 1fr));
       gap: 10px;
-      margin-top: 12px;
+      margin-top: 14px;
     }
     .pill {
       border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 10px;
-      background: #fbfcff;
+      border-radius: 12px;
+      padding: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #f6f9fe 100%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
     }
     .label { color: var(--muted); font-size: 0.83rem; }
-    .value { font-size: 1.1rem; font-weight: 700; margin-top: 2px; }
+    .value { font-size: 1.25rem; font-weight: 800; margin-top: 4px; letter-spacing: -0.01em; }
     .risk-low { color: var(--low); }
     .risk-mid { color: var(--mid); }
     .risk-high { color: var(--high); }
-    .actions { margin-top: 10px; padding: 10px; border-radius: 10px; background: #f8fbff; border: 1px solid var(--line); }
+    .actions {
+      margin-top: 12px;
+      padding: 11px 12px;
+      border-radius: 12px;
+      background: #f7fbff;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--accent);
+      font-weight: 600;
+    }
+    .disclaimer {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #f0d7a1;
+      background: #fff8e8;
+      color: #6a4b00;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .high-risk-alert {
+      margin-top: 8px;
+      padding: 11px 12px;
+      border-radius: 10px;
+      border: 1px solid #efb4b4;
+      background: #fff1f1;
+      color: #7b1f1f;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      display: none;
+    }
+    .high-risk-alert strong {
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .high-risk-alert ul {
+      margin-top: 6px;
+      padding-left: 16px;
+      list-style: disc;
+    }
+    .redline-alert {
+      margin-top: 8px;
+      padding: 11px 12px;
+      border-radius: 10px;
+      border: 1px solid #f09a9a;
+      background: #ffe9e9;
+      color: #7d1515;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      display: none;
+    }
+    .redline-alert strong {
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .redline-alert ul {
+      margin-top: 6px;
+      padding-left: 16px;
+      list-style: disc;
+    }
     ul { list-style: none; padding: 0; margin: 0; }
     li {
       border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 8px 10px;
+      border-radius: 12px;
+      padding: 9px 10px;
       margin-bottom: 8px;
-      background: #fcfdff;
+      background: #fbfdff;
       line-height: 1.45;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
     }
-    input[type="checkbox"] { transform: translateY(1px); }
-    .q { margin-left: 6px; }
-    .w { color: var(--muted); font-size: 0.82rem; margin-left: 6px; }
+    li:hover {
+      transform: translateY(-1px);
+      border-color: #bfd2e6;
+      box-shadow: 0 8px 18px rgba(19, 52, 84, 0.08);
+    }
+    label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    input[type="checkbox"] {
+      transform: translateY(1px);
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
+    }
+    .q { margin-left: 2px; }
+    .w { display: none; }
+    .evidence-row {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed #d6e0ec;
+      display: none;
+    }
+    .evidence-note {
+      width: 100%;
+      border: 1px solid #d3deea;
+      border-radius: 8px;
+      padding: 7px 9px;
+      font: inherit;
+      font-size: 0.88rem;
+      color: var(--text);
+      background: #fff;
+      margin-bottom: 6px;
+    }
+    .evidence-file {
+      font: inherit;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .opinion-box {
+      width: 100%;
+      min-height: 84px;
+      border: 1px solid #d3deea;
+      border-radius: 10px;
+      padding: 9px 10px;
+      font: inherit;
+      font-size: 0.9rem;
+      color: var(--text);
+      resize: vertical;
+      background: #fff;
+      margin-top: 8px;
+    }
     .footer { color: var(--muted); font-size: 0.9rem; }
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
+    @keyframes reveal {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     @media (max-width: 760px) {
       .summary { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+      .card { padding: 16px 14px; }
+      h1 { font-size: 1.4rem; }
+      .value { font-size: 1.15rem; }
+      .w { font-size: 0.75rem; }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
     <section class="card">
-      <h1>개정노조법 사용자성 세분화 체크리스트</h1>
+      <h1>개정노조법 사용자성 체크리스트</h1>
       <div class="meta">기준일: 2026-04-09 | 시행일: 2026-03-10</div>
       <div class="meta">체크기준: 계약서·지침서·시스템 설정·회의록·현장관행 중 하나라도 확인되면 체크</div>
+      <div class="meta">해석기준: 근로조건에 대한 실질적·구체적 지배·결정 및 구조적 통제 여부(특정 근로조건 범위 한정)</div>
 
       <div class="summary">
         <div class="pill"><div class="label">총 항목</div><div class="value" id="totalCount">0</div></div>
@@ -102,15 +266,18 @@
         <span class="risk-mid">중위험</span> 35~64점,
         <span class="risk-high">고위험</span> 65~100점
       </div>
+      <div class="disclaimer">
+        안내: 본 체크리스트는 참고용이며, 저위험 점수라도 특정 근로조건에 대한 실질적·구체적 지배·결정이 인정되면 사용자성이 인정될 수 있습니다.
+      </div>
+      <div class="redline-alert" id="redlineAlert"></div>
+      <div class="high-risk-alert" id="highRiskAlert"></div>
     </section>
 
     <section class="card">
       <h2>A. 계약/문서 구조</h2>
       <ul>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">도급계약서·운영지침에 원청의 업무 지시 또는 승인 권한 문구가 있다.</span><span class="w">(3점)</span></label></li>
-        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">과업지시서에서 하청근로자의 업무의 내용·수행방법·수행시간·수행장소를 원청이 구체화한다.</span><span class="w">(3점)</span></label></li>
-        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청 표준서식(지시서·작업표준·점검표)을 하청업체가 그대로 사용하도록 정해져 있다.</span><span class="w">(3점)</span></label></li>
-        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">하청업체의 작업계획 변경 시 원청 사전협의 또는 사전승인 절차가 필수로 운영된다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">과업지시서에서 하청 소속 근로자의 업무의 내용·수행방법·수행시간·수행장소를 원청이 구체적으로 정하거나 변경한다.</span><span class="w">(3점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청 승인 없이는 하청업체가 인력배치·교체·충원 계획을 확정하기 어렵다.</span><span class="w">(3점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 하청업체의 인사평가 또는 제재 기준 수립·변경에 관여한 기록이 있다.</span><span class="w">(3점)</span></label></li>
       </ul>
@@ -119,12 +286,10 @@
     <section class="card">
       <h2>B. 인력운영 관여</h2>
       <ul>
-        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">채용·투입 단계에서 원청의 사전확인 또는 승인 절차가 운영된다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">채용·투입 단계에서 원청의 사전확인 또는 승인 절차를 거친다.</span><span class="w">(3점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청 요청으로 특정 인력의 교체·배제·재배치가 실행된 사례가 있다.</span><span class="w">(3점)</span></label></li>
-        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 직무별 필요인원·숙련요건을 제시하고 그 기준에 맞춰 인력을 요구한다.</span><span class="w">(3점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 근태·결원 현황을 실시간으로 모니터링하고 즉시 충원 지시를 한다.</span><span class="w">(3점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">휴가·연장근로·휴일근로 편성 시 원청 승인 또는 협의가 선행된다.</span><span class="w">(3점)</span></label></li>
-        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">결원 발생 시 대체인력 투입 시점·인원을 원청이 사실상 정한다.</span><span class="w">(3점)</span></label></li>
       </ul>
     </section>
 
@@ -134,7 +299,6 @@
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청 관리자(PM/반장)가 하청근로자에게 일일 업무를 직접 지시한다.</span><span class="w">(3점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 작업순서·수행방법·작업속도 등 수행방식을 직접 정한다.</span><span class="w">(3점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 작업 개시·중단·재개 시점을 결정하거나 현장에서 즉시 변경한다.</span><span class="w">(3점)</span></label></li>
-        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 작업장 이동·동선·구역배정을 직접 지정하고 수시로 조정한다.</span><span class="w">(3점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청 시스템에서 개인별 업무실적을 집계하고 현장 피드백에 활용한다.</span><span class="w">(3점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">하청 관리자 경유 없이 원청과 하청근로자 간 직접 지시·보고가 상시 이루어진다.</span><span class="w">(3점)</span></label></li>
       </ul>
@@ -146,16 +310,14 @@
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">임금항목·수당기준·성과급 기준을 원청이 제시하거나 승인한다.</span><span class="w">(3점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">교대편성·근무시간대·휴게운영 기준을 원청이 정하거나 변경 요구한다.</span><span class="w">(3점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 연장·야간·휴일근로 필요 여부를 정하고 그 결과가 수당 산정에 반영된다.</span><span class="w">(3점)</span></label></li>
-        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청의 생산·운영계획 변경이 하청근로자의 근무시간·휴무일 변경으로 직접 이어진다.</span><span class="w">(3점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 복무규정·고객응대 기준 위반을 이유로 개인 단위 시정지시를 한다.</span><span class="w">(3점)</span></label></li>
-        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">안전보건 장비 지급·사용 기준을 원청이 정하고 인력운영과 연동해 적용한다.</span><span class="w">(3점)</span></label></li>
       </ul>
     </section>
 
     <section class="card">
       <h2>E. 안전/품질 관련 구조적 통제</h2>
       <ul>
-        <li><label><input class="risk-item" type="checkbox" data-weight="4" /> <span class="q">원청이 안전교육 이수 여부를 기준으로 현장 투입 가능 여부를 결정한다.</span><span class="w">(4점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="4" /> <span class="q">원청이 안전 관련 통제(예: 안전교육 이수 기준)로 하청 소속 근로자의 현장 투입 여부를 실질적으로 좌우한다.</span><span class="w">(4점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="4" /> <span class="q">원청이 인력배치표·근무조 편성을 직접 수정하거나 재작성한다.</span><span class="w">(4점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">품질·안전 점검 결과가 특정 인력 교체 또는 배제 지시로 연결된다.</span><span class="w">(3점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">안전·품질 회의에서 원청이 개인별 조치사항과 이행기한을 직접 부여한다.</span><span class="w">(3점)</span></label></li>
@@ -165,11 +327,17 @@
     <section class="card">
       <h2>F. 운영체계/보고라인 관여</h2>
       <ul>
-        <li><label><input class="risk-item" type="checkbox" data-weight="4" /> <span class="q">하청근로자의 업무결과 보고 라인이 하청 관리자보다 원청 관리자 중심으로 운영된다.</span><span class="w">(4점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="4" /> <span class="q">하청근로자의 업무결과 보고 라인이 하청 관리자보다 원청 관리자 중심으로 형성되어 있다.</span><span class="w">(4점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="4" /> <span class="q">원청이 하청업체 반장·관리자 선임 또는 교체에 대해 사전승인·사전협의를 요구한다.</span><span class="w">(4점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청 내부 시스템(메신저·업무앱·출입/근태 시스템)에 하청근로자를 직접 편입해 운영한다.</span><span class="w">(3점)</span></label></li>
         <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청의 일일·주간 운영회의에서 하청근로자 개인별 업무배정·실적개선 지시가 이루어진다.</span><span class="w">(3점)</span></label></li>
       </ul>
+    </section>
+
+    <section class="card">
+      <h2>종합의견(정성판단)</h2>
+      <div class="meta">점수와 별도로 개별 사업장 사실관계, 쟁점 문항, 즉시 개선 필요사항을 요약하세요.</div>
+      <textarea class="opinion-box" id="summaryOpinion" placeholder="예: 저위험 점수이나 C-1, E-2 문항에서 직접 지시 정황이 확인되어 사용자성 인정 리스크 존재. 2주 내 지시체계 정비 필요."></textarea>
     </section>
 
     <section class="card footer">
@@ -189,21 +357,76 @@
       var riskScoreEl = document.getElementById('riskScore');
       var riskLevelEl = document.getElementById('riskLevel');
       var nextActionsEl = document.getElementById('nextActions');
+      var redlineAlertEl = document.getElementById('redlineAlert');
+      var highRiskAlertEl = document.getElementById('highRiskAlert');
+      var criticalKeywords = [
+        '직접 지시',
+        '수행방법',
+        '수행시간',
+        '수행장소',
+        '인력배치표',
+        '근무조 편성',
+        '교체·배제·재배치',
+        '임금항목',
+        '근무시간대'
+      ];
+      var redlineKeywords = [
+        '직접 지시',
+        '수행방법',
+        '수행시간',
+        '수행장소',
+        '교체·배제·재배치',
+        '인력배치표',
+        '근무조 편성'
+      ];
+
+      function escapeHtml(str) {
+        return str
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('\"', '&quot;')
+          .replaceAll('\'', '&#39;');
+      }
+
+      items.forEach(function (el) {
+        var li = el.closest('li');
+        if (!li) { return; }
+        var evidence = document.createElement('div');
+        evidence.className = 'evidence-row';
+        evidence.innerHTML = '<input class=\"evidence-note\" type=\"text\" placeholder=\"관련 자료: 문서명/작성일/담당부서\" />' +
+          '<input class=\"evidence-file\" type=\"file\" />';
+        li.appendChild(evidence);
+      });
+
+      function toggleEvidence(el) {
+        var li = el.closest('li');
+        if (!li) { return; }
+        var row = li.querySelector('.evidence-row');
+        if (!row) { return; }
+        row.style.display = el.checked ? 'block' : 'none';
+      }
 
       function update() {
         var total = items.length;
         var checked = 0;
         var score = 0;
-        var maxScore = 0;
+        var maxScore = 100;
+        var triggered = [];
+        var redlineTriggered = [];
 
         items.forEach(function (el) {
-          var w = Number(el.getAttribute('data-weight') || 1);
-          maxScore += w;
           if (el.checked) {
             checked += 1;
-            score += w;
+            var textEl = el.closest('label') ? el.closest('label').querySelector('.q') : null;
+            var text = textEl ? textEl.textContent : '';
+            var isCritical = criticalKeywords.some(function (k) { return text.indexOf(k) !== -1; });
+            if (isCritical) { triggered.push(text); }
+            var isRedline = redlineKeywords.some(function (k) { return text.indexOf(k) !== -1; });
+            if (isRedline) { redlineTriggered.push(text); }
           }
         });
+        score = total > 0 ? (checked / total) * 100 : 0;
 
         var level = '저위험';
         var cls = 'risk-low';
@@ -217,13 +440,45 @@
 
         totalCountEl.textContent = String(total);
         checkedCountEl.textContent = String(checked);
-        riskScoreEl.textContent = String(score) + ' / ' + String(maxScore);
+        riskScoreEl.textContent = score.toFixed(0) + ' / ' + String(maxScore);
         riskLevelEl.textContent = level;
         riskLevelEl.className = 'value ' + cls;
         nextActionsEl.innerHTML = '등급 기준: <span class="risk-low">저위험</span> 0~34점, <span class="risk-mid">중위험</span> 35~64점, <span class="risk-high">고위험</span> 65~100점';
+
+        if (redlineTriggered.length > 0) {
+          var redItems = redlineTriggered.slice(0, 3).map(function (t) {
+            return '<li>' + escapeHtml(t) + '</li>';
+          }).join('');
+          var redTail = redlineTriggered.length > 3 ? '<li>외 ' + String(redlineTriggered.length - 3) + '개 항목</li>' : '';
+          redlineAlertEl.style.display = 'block';
+          redlineAlertEl.innerHTML = '<strong>레드라인(즉시 보고)</strong>즉시 보고 대상 문항이 체크되었습니다. 노무/법무 책임자에게 우선 공유하세요.' +
+            '<ul>' + redItems + redTail + '</ul>';
+        } else {
+          redlineAlertEl.style.display = 'none';
+          redlineAlertEl.innerHTML = '';
+        }
+
+        if (score >= 65 || triggered.length > 0) {
+          var itemsHtml = triggered.slice(0, 3).map(function (t) {
+            return '<li>' + escapeHtml(t) + '</li>';
+          }).join('');
+          var tail = triggered.length > 3 ? '<li>외 ' + String(triggered.length - 3) + '개 항목</li>' : '';
+          highRiskAlertEl.style.display = 'block';
+          highRiskAlertEl.innerHTML = '<strong>고위험 트리거 알림</strong>핵심 통제 항목이 체크되었습니다. 관련 사실관계와 증빙을 우선 점검하세요.' +
+            (triggered.length > 0 ? '<ul>' + itemsHtml + tail + '</ul>' : '');
+        } else {
+          highRiskAlertEl.style.display = 'none';
+          highRiskAlertEl.innerHTML = '';
+        }
       }
 
-      items.forEach(function (el) { el.addEventListener('change', update); });
+      items.forEach(function (el) {
+        el.addEventListener('change', function () {
+          toggleEvidence(el);
+          update();
+        });
+      });
+      items.forEach(function (el) { toggleEvidence(el); });
       update();
     })();
   </script>
