@@ -3,162 +3,223 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>개정노조법 사용자성 체크리스트 (2026-04-09)</title>
+  <title>개정노조법 사용자성 세분화 체크리스트 (2026-04-09)</title>
   <style>
     :root {
-      --bg: #f7f8fa;
+      --bg: #f4f7fb;
       --card: #ffffff;
-      --text: #1d1f23;
-      --muted: #5f6773;
-      --line: #e5e8ee;
-      --accent: #0b6bcb;
+      --text: #1b1f24;
+      --muted: #5b6573;
+      --line: #e2e8f0;
+      --accent: #0a66c2;
+      --low: #1a7f37;
+      --mid: #b7791f;
+      --high: #c53030;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
       color: var(--text);
-      background: linear-gradient(180deg, #eef5ff 0%, var(--bg) 240px);
+      background: linear-gradient(180deg, #eaf2ff 0, var(--bg) 220px);
     }
     .wrap {
-      max-width: 980px;
-      margin: 28px auto;
-      padding: 0 16px;
+      max-width: 1040px;
+      margin: 24px auto;
+      padding: 0 16px 30px;
     }
     .card {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 14px;
-      box-shadow: 0 8px 24px rgba(9, 30, 66, 0.08);
-      padding: 22px;
+      padding: 20px;
       margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(15, 35, 60, 0.07);
     }
-    h1 {
-      margin: 0 0 8px;
-      font-size: 1.6rem;
-    }
-    .meta {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-bottom: 10px;
-    }
+    h1 { margin: 0 0 8px; font-size: 1.55rem; }
     h2 {
       margin: 0 0 10px;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       border-left: 4px solid var(--accent);
       padding-left: 8px;
     }
-    ul {
-      margin: 0;
-      padding-left: 0;
-      list-style: none;
+    .meta { color: var(--muted); font-size: 0.94rem; margin-bottom: 6px; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
     }
-    li {
-      padding: 8px 10px;
+    .pill {
       border: 1px solid var(--line);
       border-radius: 10px;
+      padding: 10px;
+      background: #fbfcff;
+    }
+    .label { color: var(--muted); font-size: 0.83rem; }
+    .value { font-size: 1.1rem; font-weight: 700; margin-top: 2px; }
+    .risk-low { color: var(--low); }
+    .risk-mid { color: var(--mid); }
+    .risk-high { color: var(--high); }
+    .actions { margin-top: 10px; padding: 10px; border-radius: 10px; background: #f8fbff; border: 1px solid var(--line); }
+    ul { list-style: none; padding: 0; margin: 0; }
+    li {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 10px;
       margin-bottom: 8px;
       background: #fcfdff;
-    }
-    .src li {
-      font-size: 0.95rem;
       line-height: 1.45;
     }
+    input[type="checkbox"] { transform: translateY(1px); }
+    .q { margin-left: 6px; }
+    .w { color: var(--muted); font-size: 0.82rem; margin-left: 6px; }
+    .footer { color: var(--muted); font-size: 0.9rem; }
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    .check { font-weight: 700; margin-right: 6px; }
+    @media (max-width: 760px) {
+      .summary { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <section class="card">
-      <h1>개정노조법 사용자성 체크리스트</h1>
+      <h1>개정노조법 사용자성 세분화 체크리스트</h1>
       <div class="meta">기준일: 2026-04-09 | 시행일: 2026-03-10</div>
-      <div class="meta">반영: 고용노동부 해석지침(최종) + 최근 판정·판결 경향</div>
+      <div class="meta">사용법: 각 항목에서 해당하면 체크하세요. 체크할수록 사용자성 리스크가 올라갑니다.</div>
+
+      <div class="summary">
+        <div class="pill"><div class="label">총 항목</div><div class="value" id="totalCount">0</div></div>
+        <div class="pill"><div class="label">체크 항목</div><div class="value" id="checkedCount">0</div></div>
+        <div class="pill"><div class="label">위험 점수</div><div class="value" id="riskScore">0</div></div>
+        <div class="pill"><div class="label">현재 등급</div><div class="value" id="riskLevel">저위험</div></div>
+      </div>
+
+      <div class="actions" id="nextActions">
+        우선 조치: 핵심 통제 항목(가중치 3점)부터 계약·운영 관행을 일치시키세요.
+      </div>
     </section>
 
     <section class="card">
-      <h2>1) 1차 판정: 실질·구체적 지배·결정 여부</h2>
+      <h2>A. 계약/문서 구조</h2>
       <ul>
-        <li><span class="check">[ ]</span>원청이 임금·근로시간·휴게·배치·안전·평가/징계 중 일부를 직접 또는 사실상 결정하는가?</li>
-        <li><span class="check">[ ]</span>도급계약서·과업지시서·운영매뉴얼·시스템으로 상시 통제 구조가 있는가?</li>
-        <li><span class="check">[ ]</span>특정 의제(예: 안전, 배치) 범위에서 사용자성 가능성을 검토했는가?</li>
-      </ul>
-    </section>
-
-    <section class="card">
-      <h2>2) 2차 판정: 구조적 통제 여부</h2>
-      <ul>
-        <li><span class="check">[ ]</span>원청이 하청 인력운영에 구조적으로 개입하는 체계인가?</li>
-        <li><span class="check">[ ]</span>구조적 통제와 불법파견을 구분하여 별도 검토했는가?</li>
-        <li><span class="check">[ ]</span>통제 필요성·범위를 문서화하고 과도한 통제를 축소했는가?</li>
-      </ul>
-    </section>
-
-    <section class="card">
-      <h2>3) 의제별 사용자성 맵</h2>
-      <ul>
-        <li><span class="check">[ ]</span>의제별(임금/시간/안전/배치/복리후생) 최종결정권자를 표로 정리했는가?</li>
-        <li><span class="check">[ ]</span>인정 가능 의제와 부인 가능 의제를 분리해 교섭전략을 준비했는가?</li>
-        <li><span class="check">[ ]</span>현장 발언/지시가 공식 법무·노무 입장과 충돌하지 않게 관리하는가?</li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">도급계약서에 원청의 업무지시 권한 조항이 있다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">과업지시서에서 인력수·직무·근무시간을 원청이 정한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="2" /> <span class="q">SLA/KPI가 근로자 개인 단위 성과관리로 설계되어 있다.</span><span class="w">(2점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="2" /> <span class="q">위탁사 인사평가 기준을 원청이 승인·변경한다.</span><span class="w">(2점)</span></label></li>
       </ul>
     </section>
 
     <section class="card">
-      <h2>4) 교섭요구 대응 절차</h2>
+      <h2>B. 인력운영 통제</h2>
       <ul>
-        <li><span class="check">[ ]</span>교섭요구 접수 즉시 법무·노무·현업 공동대응 체계를 가동하는가?</li>
-        <li><span class="check">[ ]</span>교섭요구 사실 공고 등 법정 절차(기한·형식)를 누락 없이 이행하는가?</li>
-        <li><span class="check">[ ]</span>사용자성 다툼과 절차 이행을 분리 트랙으로 관리하는가?</li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">채용 단계에서 원청 의견이 사실상 결정권으로 작동한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">투입·교체·퇴출 인력 명단을 원청이 확정한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="2" /> <span class="q">휴가·연장근로·휴일근로 승인에 원청 결재가 필요하다.</span><span class="w">(2점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="2" /> <span class="q">결원 발생 시 대체인력 투입 시점을 원청이 지정한다.</span><span class="w">(2점)</span></label></li>
       </ul>
     </section>
 
     <section class="card">
-      <h2>5) 노동쟁의 대상 확대 대응</h2>
+      <h2>C. 업무수행 지휘</h2>
       <ul>
-        <li><span class="check">[ ]</span>구조조정에 따른 배치전환·정리해고 이슈를 쟁의대상 가능 항목으로 관리하는가?</li>
-        <li><span class="check">[ ]</span>일상적 배치전환 vs 구조조정성 배치전환 구분기준이 있는가?</li>
-        <li><span class="check">[ ]</span>단체협약 위반 리스크를 사전점검하고 즉시 시정 프로세스를 운영하는가?</li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">일일 업무지시를 원청 관리자(PM/반장)가 직접 한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">작업순서·방법·속도를 원청이 정한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="2" /> <span class="q">원청이 개인별 실적을 직접 집계·피드백한다.</span><span class="w">(2점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="2" /> <span class="q">위탁관리자를 거치지 않고 원청이 근로자에게 직접 지시한다.</span><span class="w">(2점)</span></label></li>
       </ul>
     </section>
 
     <section class="card">
-      <h2>6) 손해배상(개정 제3조) 대응</h2>
+      <h2>D. 근로조건 결정</h2>
       <ul>
-        <li><span class="check">[ ]</span>손배 청구 시 행위자별 역할·관여도 기반 책임비율 프레임을 적용하는가?</li>
-        <li><span class="check">[ ]</span>전액·일괄 청구 관행을 재점검했는가?</li>
-        <li><span class="check">[ ]</span>분쟁 종결형 합의(감면·면제 포함) 옵션을 준비했는가?</li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">임금테이블 또는 수당 기준을 원청이 제시·승인한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="2" /> <span class="q">교대조 편성·시차출퇴근·휴게시간 운영을 원청이 정한다.</span><span class="w">(2점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="2" /> <span class="q">휴게공간·식당 이용기준을 원청이 일방 정한다.</span><span class="w">(2점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="2" /> <span class="q">안전보건 장비 지급 기준을 원청이 최종결정한다.</span><span class="w">(2점)</span></label></li>
       </ul>
     </section>
 
     <section class="card">
-      <h2>7) 최근 경향 반영</h2>
+      <h2>E. 안전/품질 명목의 구조적 통제</h2>
       <ul>
-        <li><span class="check">[ ]</span>서울행정법원 2024구합72896(2025-10-30 선고, 2025-11-27 공개) 취지를 반영했는가?</li>
-        <li><span class="check">[ ]</span>2026-04-02 충남지노위 인용 사례(언론보도 기준)처럼 안전관리·인력배치 관여를 핵심 요소로 관리하는가?</li>
-        <li><span class="check">[ ]</span>부당노동행위 구제신청의 기간·계속행위 쟁점까지 타임라인으로 관리하는가?</li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">안전교육 미이수자를 원청이 현장 배제한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="3" /> <span class="q">원청이 인력배치표를 직접 수정·재작성한다.</span><span class="w">(3점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="2" /> <span class="q">원청 점검결과가 인력교체 요구로 연결된다.</span><span class="w">(2점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="2" /> <span class="q">안전/품질 회의에서 원청이 개인별 조치사항을 지시한다.</span><span class="w">(2점)</span></label></li>
       </ul>
     </section>
 
     <section class="card">
-      <h2>8) 증빙·감사 체계</h2>
+      <h2>F. 교섭요구 대응/증빙</h2>
       <ul>
-        <li><span class="check">[ ]</span>원·하청 역할분담(결정권한)을 계약·매뉴얼·회의록 간 일치시켰는가?</li>
-        <li><span class="check">[ ]</span>현장지시 로그, 안전지시 문서, 인력배치 지시권자 기록을 상시 보관하는가?</li>
-        <li><span class="check">[ ]</span>분기별 사용자성 셀프점검 및 개선조치를 경영회의에 보고하는가?</li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="2" /> <span class="q">교섭요구 접수 후 24시간 내 공동대응 체계가 없다.</span><span class="w">(2점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="2" /> <span class="q">법정 절차 기한(공고/통지) 관리표가 없다.</span><span class="w">(2점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="2" /> <span class="q">의제별 결정권 범위 문서가 없다.</span><span class="w">(2점)</span></label></li>
+        <li><label><input class="risk-item" type="checkbox" data-weight="2" /> <span class="q">현장 지시 로그·회의록·승인기록 보관 체계가 미흡하다.</span><span class="w">(2점)</span></label></li>
       </ul>
     </section>
 
-    <section class="card src">
-      <h2>참고 출처</h2>
-      <ul>
-        <li>고용노동부 보도자료(2026-02-24): <a href="https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18983">https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18983</a></li>
-        <li>고용노동부 공지(2026-02-27): <a href="https://www.moel.go.kr/news/notice/noticeView.do?bbs_seq=20260201291">https://www.moel.go.kr/news/notice/noticeView.do?bbs_seq=20260201291</a></li>
-        <li>정책브리핑(2026-03-09): <a href="https://m.korea.kr/briefing/pressReleaseView.do?gubun=pressRelease&newsId=156747926&pageIndex=25&repCode=">https://m.korea.kr/briefing/pressReleaseView.do?gubun=pressRelease&newsId=156747926&pageIndex=25&repCode=</a></li>
-        <li>국가법령정보센터: <a href="https://www.law.go.kr/LSW/lsLawLinkInfo.do?chrClsCd=010202&lsJoLnkSeq=900223312">https://www.law.go.kr/LSW/lsLawLinkInfo.do?chrClsCd=010202&lsJoLnkSeq=900223312</a></li>
-        <li>법원 판결(2024구합72896): <a href="https://www.scourt.go.kr/portal/dcboard/DcNewsViewAction.work?cbub_code=000220&gubun=44&scode_kname=&searchOption=&searchWord=&seqnum=27652">https://www.scourt.go.kr/portal/dcboard/DcNewsViewAction.work?cbub_code=000220&gubun=44&scode_kname=&searchOption=&searchWord=&seqnum=27652</a></li>
-      </ul>
+    <section class="card footer">
+      참고 출처: 
+      <a href="https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18983">고용노동부 보도자료(2026-02-24)</a>,
+      <a href="https://www.moel.go.kr/news/notice/noticeView.do?bbs_seq=20260201291">고용노동부 해석지침 공지(2026-02-27)</a>,
+      <a href="https://m.korea.kr/briefing/pressReleaseView.do?gubun=pressRelease&newsId=156747926&pageIndex=25&repCode=">정책브리핑(2026-03-09)</a>,
+      <a href="https://www.scourt.go.kr/portal/dcboard/DcNewsViewAction.work?cbub_code=000220&gubun=44&scode_kname=&searchOption=&searchWord=&seqnum=27652">서울행정법원 2024구합72896</a>
     </section>
   </div>
+
+  <script>
+    (function () {
+      var items = Array.prototype.slice.call(document.querySelectorAll('.risk-item'));
+      var totalCountEl = document.getElementById('totalCount');
+      var checkedCountEl = document.getElementById('checkedCount');
+      var riskScoreEl = document.getElementById('riskScore');
+      var riskLevelEl = document.getElementById('riskLevel');
+      var nextActionsEl = document.getElementById('nextActions');
+
+      function update() {
+        var total = items.length;
+        var checked = 0;
+        var score = 0;
+        var maxScore = 0;
+
+        items.forEach(function (el) {
+          var w = Number(el.getAttribute('data-weight') || 1);
+          maxScore += w;
+          if (el.checked) {
+            checked += 1;
+            score += w;
+          }
+        });
+
+        var ratio = maxScore === 0 ? 0 : score / maxScore;
+        var level = '저위험';
+        var cls = 'risk-low';
+        var msg = '우선 조치: 핵심 통제 항목(가중치 3점)부터 계약서 문구와 현장운영을 일치시키세요.';
+
+        if (ratio >= 0.66) {
+          level = '고위험';
+          cls = 'risk-high';
+          msg = '즉시 조치: 원청의 직접 지시·인력확정·임금결정 관행을 우선 중단/재설계하고, 교섭 대응 TF를 상시화하세요.';
+        } else if (ratio >= 0.33) {
+          level = '중위험';
+          cls = 'risk-mid';
+          msg = '우선 조치: 사용자성 인정 가능 의제(안전·배치·근무시간)를 분리해 문서화하고, 현장 지시 채널을 정비하세요.';
+        }
+
+        totalCountEl.textContent = String(total);
+        checkedCountEl.textContent = String(checked);
+        riskScoreEl.textContent = String(score) + ' / ' + String(maxScore);
+        riskLevelEl.textContent = level;
+        riskLevelEl.className = 'value ' + cls;
+        nextActionsEl.textContent = msg;
+      }
+
+      items.forEach(function (el) { el.addEventListener('change', update); });
+      update();
+    })();
+  </script>
 </body>
 </html>
